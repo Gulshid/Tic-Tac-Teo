@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:tac_tic_teo/Routes/Routes.dart';
+import 'package:tac_tic_teo/Routes/RoutesName.dart';
 import 'package:tac_tic_teo/viewModel_/GameProvider.dart';
 
 void main() {
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
             builder: (BuildContext context) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                title: 'Unit Converter',
+                title: 'Tic Tac Toe',
                 theme: ThemeData(
                   applyElevationOverlayColor: true,
                   brightness: Brightness.light,
@@ -38,8 +40,8 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
           
-                // initialRoute: Routesname.home,
-                // onGenerateRoute: Routes.generate_Route,
+              initialRoute: Routesname.game_screen,
+              onGenerateRoute: Routes.generate_Route,
               );
             },
           ),
