@@ -14,6 +14,9 @@ class GameViewScreen extends StatefulWidget {
 }
 
 class _GameViewScreenState extends State<GameViewScreen> {
+  List ContainerColor = [
+    Colors.orange, Colors.lime, Colors.blue, Colors.deepPurple, Colors.deepOrange, Colors.green, const Color.fromARGB(255, 202, 31, 91), Colors.lightGreenAccent, const Color.fromARGB(255, 33, 176, 78)
+  ];
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<Gameprovider>(context);
@@ -38,7 +41,7 @@ class _GameViewScreenState extends State<GameViewScreen> {
                 'Tac Tic Teo',
                 style: GoogleFonts.adamina(
                   color: Colors.purple,
-                  fontSize: 20.sp,
+                  fontSize: 30.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -48,8 +51,8 @@ class _GameViewScreenState extends State<GameViewScreen> {
               expandedHeight: 150.h,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25.r),
-                  bottomRight: Radius.circular(25.r),
+                  bottomLeft: Radius.circular(20.r),
+                  bottomRight: Radius.circular(20.r),
                 ),
               ),
 
@@ -57,8 +60,8 @@ class _GameViewScreenState extends State<GameViewScreen> {
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return ClipRRect(
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(25.r),
-                      bottomRight: Radius.circular(25.r),
+                      bottomLeft: Radius.circular(20.r),
+                      bottomRight: Radius.circular(20.r),
                     ),
                     child: Container(
                       decoration: BoxDecoration(
@@ -83,8 +86,9 @@ class _GameViewScreenState extends State<GameViewScreen> {
                               child: Text(
                                 'Game',
                                 style: GoogleFonts.aDLaMDisplay(
-                                  color: Colors.white,
-                                  fontSize: 20.sp,
+                                  color: Colors.deepOrange,
+                                  fontSize: 30.sp,
+                                  fontWeight: FontWeight.bold
                                 ),
                               ),
                             ),
@@ -104,7 +108,7 @@ class _GameViewScreenState extends State<GameViewScreen> {
                 children: [
                   GridView.builder(
                     shrinkWrap: true,
-                    itemCount: 9,
+                    itemCount: ContainerColor.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
@@ -115,13 +119,17 @@ class _GameViewScreenState extends State<GameViewScreen> {
                           child: Container(
                             margin: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
-                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(18.r),
+                              color: ContainerColor[index],
                             ),
                             child: Center(
                               child: Text(
                                 pro.board[index],
-                                style: const TextStyle(fontSize: 36, color: Colors.black),
+                                style:  GoogleFonts.akatab(
+                                  fontSize: 40.sp,
+                                  color: Colors.white,
+                                  fontWeight:FontWeight.bold
+                                ),
                               ),
                             ),
                           ),
@@ -133,18 +141,28 @@ class _GameViewScreenState extends State<GameViewScreen> {
                       pro.gameOver
                           ? pro.result
                           : 'Current Player: ${pro.currentPlayer == Player.X ? 'X' : 'O'}',
-                      style: GoogleFonts.agbalumo(color: Colors.black, fontSize: 20.sp),
+                      style: GoogleFonts.agbalumo(
+                        color: Colors.black,
+                        fontSize: 20.sp,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown,
+                      shadowColor:Colors.grey,
+                      foregroundColor:Colors.amberAccent
+                    ),
                     onPressed: pro.resetGame,
-                    child: Text('Reset', style: GoogleFonts.aBeeZee(color: Colors.black),),
+                    child: Text(
+                      'Reset',
+                      style: GoogleFonts.aBeeZee(color: Colors.white,),
+                    ),
                   ),
                 ],
               ),
             ),
-            
           ],
         ),
       ),
