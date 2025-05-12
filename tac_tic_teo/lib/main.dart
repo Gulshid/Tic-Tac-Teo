@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:tac_tic_teo/Routes/Routes.dart';
 import 'package:tac_tic_teo/Routes/RoutesName.dart';
 import 'package:tac_tic_teo/viewModel_/GameProvider.dart';
+// import 'package:tac_tic_teo/view_/game_view_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,8 +41,9 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
           
-              initialRoute: Routesname.game_screen,
+              initialRoute: Routesname.game,
               onGenerateRoute: Routes.generate_Route,
+              // home: GameViewScreen(),
               );
             },
           ),

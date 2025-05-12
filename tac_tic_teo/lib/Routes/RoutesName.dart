@@ -1,3 +1,3 @@
 class Routesname {
-  static const String game_screen = 'Game View';
+  static const String game = "Game View";
 }

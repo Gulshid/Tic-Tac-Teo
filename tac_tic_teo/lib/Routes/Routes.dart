@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:tac_tic_teo/Routes/RoutesName.dart';
-import 'package:tac_tic_teo/view_/Game_view.dart';
+import 'package:tac_tic_teo/view_/game_view_Screen.dart';
 
 class Routes {
-  static Route<dynamic> generate_Route(RouteSettings game) {
-    switch (game..name) {
-      // ignore: constant_pattern_never_matches_value_type
-      case Routesname.game_screen:
-        {
-          return MaterialPageRoute(
-            builder: (BuildContext context) =>Game_Screen(),
-          );
-        }
+  // ignore: non_constant_identifier_names
+  static Route<dynamic> generate_Route(RouteSettings helloWorld)
+  {
+    switch(helloWorld.name)
+    {
+      case Routesname.game:
+      {
+        return MaterialPageRoute(builder: (BuildContext context)=>GameViewScreen());
+      }
 
-      default:
-        {
-          return MaterialPageRoute(
-            builder:
-                (_) => Scaffold(
-                  body: Center(child: Text('There is no such route')),
-                ),
-          );
-        }
+    default:
+      {
+        return MaterialPageRoute(builder: (_)=>Scaffold(body: Center(child: Text('There is NO route'),),));
+      }
     }
   }
+  
 }
