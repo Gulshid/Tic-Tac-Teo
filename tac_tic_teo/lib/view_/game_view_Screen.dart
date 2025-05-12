@@ -15,7 +15,7 @@ class GameViewScreen extends StatefulWidget {
 
 class _GameViewScreenState extends State<GameViewScreen> {
   List ContainerColor = [
-    Colors.orange, Colors.lime, Colors.blue, Colors.deepPurple, Colors.deepOrange, Colors.green, const Color.fromARGB(255, 202, 31, 91), Colors.lightGreenAccent, const Color.fromARGB(255, 33, 176, 78)
+    Colors.green, Colors.green, Colors.green, Colors.deepOrange, Colors.deepOrange, Colors.deepOrange, Colors.teal, Colors.teal, Colors.teal
   ];
   @override
   Widget build(BuildContext context) {
