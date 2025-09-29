@@ -106,36 +106,50 @@ class _GameViewScreenState extends State<GameViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: ContainerColor.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                        ),
-                    itemBuilder:
-                        (context, index) => GestureDetector(
-                          onTap: () => pro.makeMove(index),
-                          child: Container(
-                            margin: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18.r),
-                              color: ContainerColor[index],
-                            ),
-                            child: Center(
-                              child: Text(
-                                pro.board[index],
-                                style:  GoogleFonts.akatab(
-                                  fontSize: 40.sp,
-                                  color: Colors.white,
-                                  fontWeight:FontWeight.bold
+                  /// Tic Tac Toe Board
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: 400.w,  
+                        maxHeight: 400.w,
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 1, // keeps board square
+                        child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: ContainerColor.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                          ),
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => pro.makeMove(index),
+                            child: Container(
+                              margin: EdgeInsets.all(4.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18.r),
+                                color: ContainerColor[index],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  pro.board[index],
+                                  style: GoogleFonts.akatab(
+                                    fontSize: 40.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
+                      ),
+                    ),
                   ),
+
                   const SizedBox(height: 20),
+
+                  /// Game status
                   Center(
                     child: Text(
                       pro.gameOver
@@ -147,22 +161,26 @@ class _GameViewScreenState extends State<GameViewScreen> {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 20),
+
+                  /// Reset Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.brown,
-                      shadowColor:Colors.grey,
-                      foregroundColor:Colors.amberAccent
+                      shadowColor: Colors.grey,
+                      foregroundColor: Colors.amberAccent,
                     ),
                     onPressed: pro.resetGame,
                     child: Text(
                       'Reset',
-                      style: GoogleFonts.aBeeZee(color: Colors.white,),
+                      style: GoogleFonts.aBeeZee(color: Colors.white),
                     ),
                   ),
                 ],
               ),
             ),
+
           ],
         ),
       ),

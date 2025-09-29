@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tac_tic_teo/Routes/Routes.dart';
 import 'package:tac_tic_teo/Routes/RoutesName.dart';
 import 'package:tac_tic_teo/viewModel_/GameProvider.dart';
-// import 'package:tac_tic_teo/view_/game_view_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,39 +14,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create:(_)=> Gameprovider()),
-          ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Detect device type and assign design size once
+        final designSize = _getDesignSize(constraints.maxWidth);
 
-          child: Builder(
-            builder: (BuildContext context) {
-              return MaterialApp(
+        return ScreenUtilInit(
+          designSize: designSize,
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (_, __) {
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => Gameprovider()),
+              ],
+              child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'Tic Tac Toe',
                 theme: ThemeData(
-                  applyElevationOverlayColor: true,
                   brightness: Brightness.light,
-                  appBarTheme: AppBarTheme(color: Colors.teal),
+                  appBarTheme: const AppBarTheme(color: Colors.teal),
                   primarySwatch: Colors.blue,
                   textTheme: Typography.englishLike2018.apply(
-                    fontSizeFactor: 1.sp,
+                    fontSizeFactor: 1.sp, // Auto scale text everywhere
                   ),
                 ),
-          
-              initialRoute: Routesname.game,
-              onGenerateRoute: Routes.generate_Route,
-              // home: GameViewScreen(),
-              );
-            },
-          ),
+                initialRoute: Routesname.game,
+                onGenerateRoute: Routes.generate_Route,
+              ),
+            );
+          },
         );
       },
     );
+  }
+}
+
+// Set design size once here (affects whole project)
+Size _getDesignSize(double width) {
+  if (width < 600) {
+    // Mobile
+    return const Size(390, 844);
+  } else if (width < 1200) {
+    // Tablet
+    return const Size(834, 1194);
+  } else {
+    // Web / Desktop
+    return const Size(1440, 1024);
   }
 }
