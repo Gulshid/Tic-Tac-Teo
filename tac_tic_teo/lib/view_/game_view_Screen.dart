@@ -1,3 +1,4 @@
+
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,14 +15,25 @@ class GameViewScreen extends StatefulWidget {
 }
 
 class _GameViewScreenState extends State<GameViewScreen> {
-  List ContainerColor = [
-    Colors.green, Colors.green, Colors.green, Colors.deepOrange, Colors.deepOrange, Colors.deepOrange, Colors.teal, Colors.teal, Colors.teal
+  List containerColor = [
+    Colors.green,
+    Colors.green,
+    Colors.green,
+    Colors.deepOrange,
+    Colors.deepOrange,
+    Colors.deepOrange,
+    Colors.teal,
+    Colors.teal,
+    Colors.teal,
   ];
+
   @override
   Widget build(BuildContext context) {
     final pro = Provider.of<Gameprovider>(context);
+
     return Scaffold(
       body: Container(
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -34,101 +46,45 @@ class _GameViewScreenState extends State<GameViewScreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Text(
-                'Tac Tic Teo',
-                style: GoogleFonts.adamina(
-                  color: Colors.purple,
-                  fontSize: 30.sp,
-                  fontWeight: FontWeight.bold,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                /// Title
+                Text(
+                  'Tac Tic Teo',
+                  style: GoogleFonts.adamina(
+                    color: Colors.purple,
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              centerTitle: true,
-              pinned: true,
-              floating: true,
-              expandedHeight: 150.h,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20.r),
-                  bottomRight: Radius.circular(20.r),
-                ),
-              ),
+                SizedBox(height: 12.h),
 
-              flexibleSpace: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20.r),
-                      bottomRight: Radius.circular(20.r),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.tealAccent,
-                            Colors.teal,
-                            Colors.lime,
-                            Colors.greenAccent,
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                      ),
-
-                      child: FlexibleSpaceBar(
-                        background: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: Text(
-                                'Game',
-                                style: GoogleFonts.aDLaMDisplay(
-                                  color: Colors.deepOrange,
-                                  fontSize: 30.sp,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            SliverToBoxAdapter(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  /// Tic Tac Toe Board
-                  Center(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: 400.w,  
-                        maxHeight: 400.w,
-                      ),
-                      child: AspectRatio(
-                        aspectRatio: 1, // keeps board square
-                        child: GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: ContainerColor.length,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                /// Board
+                Center(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: containerColor.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
                           ),
-                          itemBuilder: (context, index) => GestureDetector(
+                      itemBuilder:
+                          (context, index) => GestureDetector(
                             onTap: () => pro.makeMove(index),
                             child: Container(
-                              margin: EdgeInsets.all(4.w),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(18.r),
-                                color: ContainerColor[index],
+                                color: containerColor[index],
                               ),
                               child: Center(
                                 child: Text(
@@ -142,46 +98,50 @@ class _GameViewScreenState extends State<GameViewScreen> {
                               ),
                             ),
                           ),
-                        ),
-                      ),
                     ),
                   ),
+                ),
 
-                  const SizedBox(height: 20),
+                SizedBox(height: 20.h),
 
-                  /// Game status
-                  Center(
-                    child: Text(
-                      pro.gameOver
-                          ? pro.result
-                          : 'Current Player: ${pro.currentPlayer == Player.X ? 'X' : 'O'}',
-                      style: GoogleFonts.agbalumo(
-                        color: Colors.black,
-                        fontSize: 20.sp,
-                      ),
+                /// Game status
+                Text(
+                  pro.gameOver
+                      ? pro.result
+                      : 'Current Player: ${pro.currentPlayer == Player.X ? 'X' : 'O'}',
+                  style: GoogleFonts.agbalumo(
+                    color: Colors.black,
+                    fontSize: 20.sp,
+                  ),
+                ),
+
+                SizedBox(height: 20.h),
+
+                /// Reset Button
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    shadowColor: Colors.grey,
+                    foregroundColor: Colors.amberAccent,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.w,
+                      vertical: 12.h,
                     ),
                   ),
-
-                  const SizedBox(height: 20),
-
-                  /// Reset Button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown,
-                      shadowColor: Colors.grey,
-                      foregroundColor: Colors.amberAccent,
-                    ),
-                    onPressed: pro.resetGame,
-                    child: Text(
-                      'Reset',
-                      style: GoogleFonts.aBeeZee(color: Colors.white),
+                  onPressed: pro.resetGame,
+                  child: Text(
+                    'Reset',
+                    style: GoogleFonts.aBeeZee(
+                      color: Colors.white,
+                      fontSize: 18.sp,
                     ),
                   ),
-                ],
-              ),
+                ),
+
+                SizedBox(height: 20.h),
+              ],
             ),
-
-          ],
+          ),
         ),
       ),
     );
